@@ -6,9 +6,11 @@
 /*   By: jcavadas <jcavadas@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 20:43:41 by jcavadas          #+#    #+#             */
-/*   Updated: 2024/04/05 23:01:27 by jcavadas         ###   ########.fr       */
+/*   Updated: 2024/04/14 12:55:23 by jcavadas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "get_next_line.h"
 
 char *get_next_line(int fd)
 {
