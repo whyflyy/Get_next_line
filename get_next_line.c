@@ -6,7 +6,7 @@
 /*   By: jcavadas <jcavadas@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 20:43:41 by jcavadas          #+#    #+#             */
-/*   Updated: 2024/04/17 14:27:12 by jcavadas         ###   ########.fr       */
+/*   Updated: 2024/04/30 14:11:23 by jcavadas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	read_from_fd(int fd, char **stash, char buffer)
 {
 	int	bytes;
 	
+
 	bytes = read(fd, buffer, BUFFER_SIZE);
 
 }
