@@ -6,7 +6,7 @@
 /*   By: jcavadas <jcavadas@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 21:04:13 by jcavadas          #+#    #+#             */
-/*   Updated: 2024/04/30 13:37:49 by jcavadas         ###   ########.fr       */
+/*   Updated: 2024/05/15 14:14:00 by jcavadas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@
 # endif
 
 char	*get_next_line(int fd);
+size_t	ft_strlen(const char *str);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strjoin(char const *s1, char const *s2);
-void	*ft_calloc(size_t nmemb, size_t size);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+void	*ft_free(char **ptr);
 
 #endif

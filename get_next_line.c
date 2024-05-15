@@ -6,37 +6,81 @@
 /*   By: jcavadas <jcavadas@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 20:43:41 by jcavadas          #+#    #+#             */
-/*   Updated: 2024/04/30 14:11:23 by jcavadas         ###   ########.fr       */
+/*   Updated: 2024/05/15 14:29:51 by jcavadas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	read_from_fd(int fd, char **stash, char buffer)
+void	ft_read_from_fd(char **stash, int fd)
 {
-	int	bytes;
-	
+	ssize_t	bytes_read;
+	char	*buffer;
+	char	*temp;
 
-	bytes = read(fd, buffer, BUFFER_SIZE);
+	buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (!buffer)
+		return ;
+	bytes_read = 1;
+	while (stash != NULL && *stash && !ft_strchr(*stash, '\n') && bytes_read != 0)
+	{
+		bytes_read = read(fd, buffer, BUFFER_SIZE);
+		if (bytes_read == -1)
+		{
+			ft_free(stash);
+			break ;
+		}
+		buffer[bytes_read] = '\0';
+		temp = ft_strjoin(*stash, buffer);
+		ft_free(stash);
+		*stash = temp;
+	}
+	ft_free(&buffer);
+}
 
+char	*ft_extract_line(char **stash)
+{
+	size_t	i;
+	char	*line;
+	char	*temp;
+
+	i = 0;
+	while ((*stash)[i] && (*stash)[i] != '\n')
+		i++;
+	if (i == ft_strlen(*stash))
+	{
+		line = ft_substr(*stash, 0, i);
+		ft_free(stash);
+		return (line);
+	}
+	else
+	{
+		i++;
+		line = ft_substr(*stash, 0, i);
+		temp = ft_substr(*stash, i, ft_strlen(*stash) - i);
+		ft_free(stash);
+		*stash = temp;
+	}
+	if (!line)
+		ft_free(stash);
+	return (line);
 }
 
 char	*get_next_line(int fd)
 {
 	static char	*stash;
-	char		*buffer;
-	int			bytes;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	while (ft_strchr(stash, '/n') == NULL && bytes > 0)
-		bytes = read_from_fd(fd, &stash, buffer);
-	free(buffer);
-	/*
-	vai estar a dar read do fd para o buffer, e vai passando para a stash (variavel estatica). vai ao mesmo tempo verificando se tem um /n no stash 
-	so precisa de estar a ir fazendo isto uma vez pois quando ele tiver um /n ja tem a linha para sair 
-	a funcao que vai ter la o read vai devolver o que o read devolve, que e um int, por isso depois vai se ter de verificar se devolveu -1 (erro do read) 
-	*/
-
+	if (!stash)
+		stash = ft_strjoin("", "");
+	ft_read_from_fd(&stash, fd);
+	if (stash == NULL)
+		return (NULL);
+	if (!ft_strlen(stash))
+	{
+		ft_free(&stash);
+		return (NULL);
+	}
+	return (ft_extract_line(&stash));
 }
