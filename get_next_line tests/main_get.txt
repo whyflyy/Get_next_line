@@ -1,0 +1,22 @@
+
+int main(void)
+{
+	int i = 1;
+	int file;
+	char *line = "";
+	file = open("read1.txt", O_RDONLY);
+	line = get_next_line(file);
+	while (line)
+	{
+		printf("linha %d: %s", i, line);
+		i++;
+		free(line);
+		line = get_next_line(file);
+	}
+	// line = get_next_line(file);
+	// printf("%d\n", BUFFER_SIZE);
+	// printf("%s", line);
+	// free (line);
+	close (file);
+	return (0);
+}

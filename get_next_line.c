@@ -6,7 +6,7 @@
 /*   By: jcavadas <jcavadas@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 20:43:41 by jcavadas          #+#    #+#             */
-/*   Updated: 2024/05/15 14:29:51 by jcavadas         ###   ########.fr       */
+/*   Updated: 2024/05/21 13:37:32 by jcavadas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_read_from_fd(char **stash, int fd)
 {
-	ssize_t	bytes_read;
+	size_t	bytes_read;
 	char	*buffer;
 	char	*temp;
 
@@ -22,7 +22,8 @@ void	ft_read_from_fd(char **stash, int fd)
 	if (!buffer)
 		return ;
 	bytes_read = 1;
-	while (stash != NULL && *stash && !ft_strchr(*stash, '\n') && bytes_read != 0)
+	while (stash != NULL && *stash && !ft_strchr(*stash, '\n')
+		&& bytes_read != 0)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read == -1)
@@ -84,3 +85,4 @@ char	*get_next_line(int fd)
 	}
 	return (ft_extract_line(&stash));
 }
+
